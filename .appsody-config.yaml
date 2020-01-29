@@ -1,2 +1,2 @@
 project-name: backend-1
-stack: python:3.7
+stack: appsody/python-flask:0.2
