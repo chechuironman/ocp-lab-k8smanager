@@ -40,7 +40,7 @@ spec:
        name: env-configmap
    - secretRef:
        name: env-secrets
-  applicationImage: dev.local/backend
+  applicationImage: backend
   createKnativeService: false
   expose: true
   livenessProbe:

@@ -1,2 +1,2 @@
 project-name: backend-1
-stack: dev.local/appsody/python-flask-kub:0.1
+stack: appsody/python-flask-kub:0.1
