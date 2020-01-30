@@ -42,7 +42,7 @@ spec:
         key: host
   applicationImage: backend
   createKnativeService: false
-  expose: true
+  expose: false
   livenessProbe:
     failureThreshold: 12
     httpGet:
@@ -57,7 +57,7 @@ spec:
     annotations:
       prometheus.io/scrape: "true"
     port: 8080
-    type: NodePort
+    type: ClusterIP
   stack: python-flask
   version: 1.0.0
 status: {}
