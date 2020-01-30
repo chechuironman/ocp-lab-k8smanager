@@ -10,8 +10,6 @@ sys.path.append ("/project/userapp/libraries")
 
 class helper:
     def __init__(self):
-        # host = os.environ['MONOGDB_HOST']
-        # print(os.environ['MONOGDB_HOST'])
         self.connection = MongoClient(os.environ['MONOGDB_HOST'],
                             username=os.environ['MONGODB_USER'],
                             password=os.environ['MONGODB_PASSWORD'],
