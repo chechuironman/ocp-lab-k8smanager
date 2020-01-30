@@ -47,7 +47,7 @@ spec:
     failureThreshold: 12
     httpGet:
       path: /health
-      port: 8081 
+      port: 8080 
     initialDelaySeconds: 5
     periodSeconds: 2
   monitoring:
@@ -56,7 +56,7 @@ spec:
   service:
     annotations:
       prometheus.io/scrape: "true"
-    port: 8081
+    port: 8080
     type: NodePort
   stack: python-flask
   version: 1.0.0
