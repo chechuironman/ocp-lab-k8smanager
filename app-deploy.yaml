@@ -35,11 +35,6 @@ spec:
       secretKeyRef:
         name: mongodb-cloud-lab
         key: database-name
-  envFrom:
-  - configMapRef:
-      name: env-configmap
-  - secretRef:
-      name: env-secrets
   applicationImage: backend
   createKnativeService: false
   expose: true
