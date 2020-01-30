@@ -36,10 +36,10 @@ spec:
         name: mongodb-cloud-lab
         key: database-name
   - name: MONOGDB_HOST
-      valueFrom:
-        secretKeyRef:
-          name: mongodb-cloud-lab
-          key: host
+    valueFrom:
+      secretKeyRef:
+        name: mongodb-cloud-lab
+        key: host
   applicationImage: backend
   createKnativeService: false
   expose: true
