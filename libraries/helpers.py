@@ -5,14 +5,17 @@ import paramiko
 import string
 import random
 import time
+import os
 sys.path.append ("/project/userapp/libraries")
 
 class helper:
     def __init__(self):
-        self.connection = MongoClient('host.docker.internal:27017',
-                            username='batman',
-                            password='BatMan_2020',
-                            authSource='management')
+        # host = os.environ['MONOGDB_HOST']
+        # print(os.environ['MONOGDB_HOST'])
+        self.connection = MongoClient(os.environ['MONOGDB_HOST'],
+                            username=os.environ['MONGODB_USER'],
+                            password=os.environ['MONGODB_PASSWORD'],
+                            authSource=os.environ['MONGODB_DATABASE'])
         config = configparser.ConfigParser(allow_no_value=True)
         config.read("/project/userapp/libraries/host")
         sections = config.sections()

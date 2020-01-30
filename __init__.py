@@ -10,9 +10,6 @@ import engine,register
 import json
 from flask_cors import CORS, cross_origin
 import os
-# print(os.environ['APPSODY_PROJECT_DIR'])
-print(os.environ['key'])
-# print(os.getenv('APPSODY_PROJECT_DIR'))
 
 # The python-flask stack includes the flask extension flasgger, which will build
 # and publish your swagger ui and specification at the /apidocs url. Here we set up
