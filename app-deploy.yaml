@@ -14,32 +14,32 @@ metadata:
   name: backend
   namespace: cloud-lab
 spec:
- env:
-   - name: MONGODB_USER
-     valueFrom:
-       secretKeyRef:
-         name: mongodb-cloud-lab
-         key: database-user
-   - name: MONGODB_PASSWORD
-     valueFrom:
-       secretKeyRef:
-         name: mongodb-cloud-lab
-         key: database-password
-   - name: MONGODB_ADMIN_PASSWORD
-     valueFrom:
-       secretKeyRef:
-         name: mongodb-cloud-lab
-         key: database-admin-password
-   - name: MONGODB_DATABASE
-     valueFrom:
-       secretKeyRef:
-         name: mongodb-cloud-lab
-         key: database-name
-   envFrom:
-   - configMapRef:
-       name: env-configmap
-   - secretRef:
-       name: env-secrets
+  env:
+  - name: MONGODB_USER
+    valueFrom:
+      secretKeyRef:
+        name: mongodb-cloud-lab
+        key: database-user
+  - name: MONGODB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: mongodb-cloud-lab
+        key: database-password
+  - name: MONGODB_ADMIN_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: mongodb-cloud-lab
+        key: database-admin-password
+  - name: MONGODB_DATABASE
+    valueFrom:
+      secretKeyRef:
+        name: mongodb-cloud-lab
+        key: database-name
+  envFrom:
+  - configMapRef:
+      name: env-configmap
+  - secretRef:
+      name: env-secrets
   applicationImage: backend
   createKnativeService: false
   expose: true
