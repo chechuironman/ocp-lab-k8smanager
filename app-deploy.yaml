@@ -35,7 +35,7 @@ spec:
       secretKeyRef:
         name: mongodb-cloud-lab
         key: database-name
-  - name: MONOGDB_HOST
+  - name: MONGODB_HOST
     valueFrom:
       secretKeyRef:
         name: mongodb-cloud-lab
