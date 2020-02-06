@@ -18,7 +18,7 @@ def namespaces():
         namespace_ = []
         i = 0
         for namespace in namespaces.items:
-            namespace_.append({'id': str(i), 'namespace' : namespace.metadata.name})
+            namespace_.append({'id': str(i), 'namespace' : namespace.metadata.name, 'test': 'leumi'})
             i +=1
             # print(namespace.metadata.name)
         
