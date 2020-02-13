@@ -60,7 +60,8 @@ def user_create(user,course):
         create_oc_user = helper.create_user_oc()
         create_project = helper.create_project_oc()
         workspace = helper.workspace(user,course)
-        return jsonify({"workspace": workspace}), 200
+        helper.update_pivot()
+        return json.dumps({"workspace": workspace}), 200
     else:
         workspace = helper.workspace(user,course)
         return json.dumps(workspace)

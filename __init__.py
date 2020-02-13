@@ -10,7 +10,23 @@ import engine,register
 import json
 from flask_cors import CORS, cross_origin
 import os
+from logging.config import dictConfig
 
+dictConfig({
+    'version': 1,
+    'formatters': {'default': {
+        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+    }},
+    'handlers': {'wsgi': {
+        'class': 'logging.StreamHandler',
+        'stream': 'ext://flask.logging.wsgi_errors_stream',
+        'formatter': 'default'
+    }},
+    'root': {
+        'level': 'INFO',
+        'handlers': ['wsgi']
+    }
+})
 # The python-flask stack includes the flask extension flasgger, which will build
 # and publish your swagger ui and specification at the /apidocs url. Here we set up
 # the basic swagger attributes, which you should modify to match you application.
@@ -71,6 +87,7 @@ def _namespaces():
 @track_requests
 def _create_user():
     data  = json.loads(request.data.decode("utf-8"))
+    app.logger.info('creating userv%s ', data['user'])
     print(data)
     # print(data['course']['text'])
     result = engine.user_create(data['user'],data['course']['text'])

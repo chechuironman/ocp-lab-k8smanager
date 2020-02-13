@@ -1,2 +1,2 @@
-project-name: backend-1
-stack: appsody/python-flask:0.2
+project-name: backend-test
+stack: docker.io/appsody/python-flask:0.2
