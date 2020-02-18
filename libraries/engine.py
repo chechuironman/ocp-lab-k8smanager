@@ -64,7 +64,7 @@ def user_create(user,course):
         return json.dumps({"workspace": workspace}), 200
     else:
         workspace = helper.workspace(user,course)
-        return json.dumps(workspace)
+        return json.dumps({"workspace": workspace}), 200
 
 def course_info(user,course):
     try:
