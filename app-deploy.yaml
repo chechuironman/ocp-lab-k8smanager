@@ -11,7 +11,7 @@ metadata:
   labels:
     image.opencontainers.org/title: backend
     stack.appsody.dev/version: 0.1.6
-  name: backend
+  name: k8smanager
   namespace: cloud-lab
 spec:
   env:
