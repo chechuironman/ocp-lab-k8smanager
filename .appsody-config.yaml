@@ -1,2 +1,3 @@
+id: "20200404115119.34620700"
 project-name: backend-test
-stack: docker.io/appsody/python-flask:0.2
+stack: dev.local/appsody/python-flask-kub:latest
