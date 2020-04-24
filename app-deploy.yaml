@@ -27,6 +27,7 @@ metadata:
   name: k8smanager
   namespace: cloud-lab
 spec:
+  expose: false
   applicationImage: dev.local/backend-ocp-lab
   createKnativeService: false
   env:
