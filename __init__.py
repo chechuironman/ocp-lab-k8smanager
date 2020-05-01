@@ -1,7 +1,7 @@
 from flask import Flask, redirect, jsonify
 from flasgger import Swagger
 from flask import request
-from server import app
+from userapp import app
 from server.routes.prometheus import track_requests
 import sys
 # import kubernetes
