@@ -48,14 +48,14 @@ swagger_template = {
     "http"
   ],
 }
-swagger = Swagger(app, template=swagger_template)
+
 
 
 # cors = CORS(app, resources={r"/": {"origins": "*"}})
 # app.config['CORS_HEADERS'] = 'Content-Type'
 app = Flask(__name__)
 CORS(app)
-
+swagger = Swagger(app, template=swagger_template)
 # The python-flask stack includes the prometheus metrics engine. You can ensure your endpoints
 # are included in these metrics by enclosing them in the @track_requests wrapper.
 @app.route('/hello')
