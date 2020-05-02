@@ -1,8 +1,8 @@
 from flask import Flask, redirect, jsonify
 from flasgger import Swagger
 from flask import request
-# from flask import app
-# from server.routes.prometheus import track_requests
+from flask import app
+from server.routes.prometheus import track_requests
 import sys
 # import kubernetes
 sys.path.append ("/project/userapp/libraries")
