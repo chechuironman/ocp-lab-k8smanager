@@ -31,10 +31,10 @@ spec:
   createKnativeService: false
   volumeMounts:
   - name: ssh-key
-    mountPath: /project/userapp/libraries
+    mountPath: /project/userapp/libraries/ssh-key
     readOnly: true
   - name: kubeconfig
-    mountPath: /project/userapp/libraries
+    mountPath: /project/userapp/libraries/kubeconfig
     readOnly: true
   volumes:
     - name: ssh-key
