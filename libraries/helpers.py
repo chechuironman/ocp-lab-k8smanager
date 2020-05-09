@@ -34,7 +34,7 @@ class helper:
 
 
     def ssh(self,command):
-        key = paramiko.RSAKey.from_private_key_file("/project/userapp/libraries/ssh-key")
+        key = paramiko.RSAKey.from_private_key_file("/project/userapp/libraries/ssh-key/ssh-privatekey")
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(hostname = self.server,  username = "root", pkey = key )
@@ -84,6 +84,7 @@ class helper:
             e = sys.exc_info()[0]
             print( "<p>Error: %s</p>" % e )
             return False
+
     def check_ssh_host(self):
         try:
             print("SSH host check")
@@ -97,6 +98,7 @@ class helper:
             e = sys.exc_info()[0]
             print( "<p>Error ssh_host: %s</p>" % e )
             return False
+
     def update_pivot(self):
         try:
             db = self.connection["management"]
@@ -147,6 +149,7 @@ class helper:
             e = sys.exc_info()[0]
             print( "<p>Error: %s</p>" % e )
             return False
+
     def update_user_registry(self,user,course,parameters):
         try:
             print("Update course: {} for user {}".format(course,user))
@@ -162,19 +165,20 @@ class helper:
             e = sys.exc_info()[0]
             print( "<p>Error: %s</p>" % e )
             return False
+
     def create_user_oc(self):
         try:
             print("Create oc user: {} ".format(self.user))
             passwd =  self.randomString()
             self.oc_passwd = passwd
             self.oc_user = self.ssh_user
-            command = 'htpasswd -b /root/lab/users.htpasswd {} {}'.format(self.oc_user,self.oc_passwd)
+            command = 'htpasswd -b /mnt/lab/users.htpasswd {} {}'.format(self.oc_user,self.oc_passwd)
             print(command)
             create_oc_user = self.ssh(command)
-            command = 'oc --kubeconfig=/root/lab/kubeconfig delete secret htpass-secret -n openshift-config'
+            command = 'oc --kubeconfig=/mnt/lab/kubeconfig delete secret htpass-secret -n openshift-config'
             print(command)
             create_oc_user = self.ssh(command)
-            command = 'oc --kubeconfig=/root/lab/kubeconfig create secret generic htpass-secret --from-file=htpasswd=/root/lab/users.htpasswd -n openshift-config'
+            command = 'oc --kubeconfig=/mnt/lab/kubeconfig create secret generic htpass-secret --from-file=htpasswd=/root/lab/users.htpasswd -n openshift-config'
             print(command)
             create_oc_user = self.ssh(command)
             parameters = {"oc_user":self.oc_user,"oc_passwd":self.oc_passwd}
@@ -188,9 +192,9 @@ class helper:
     def create_project_oc(self):
         try:
             self.oc_project = self.ssh_user
-            command = 'oc --kubeconfig=/root/lab/kubeconfig new-project {}'.format(self.oc_project)
+            command = 'oc --kubeconfig=/mnt/lab/kubeconfig new-project {}'.format(self.oc_project)
             create_oc_user = self.ssh(command)
-            command = 'oc --kubeconfig=/root/lab/kubeconfig adm policy add-role-to-user edit {} -n {}'.format(self.oc_user,self.oc_project)
+            command = 'oc --kubeconfig=/mnt/lab/kubeconfig adm policy add-role-to-user edit {} -n {}'.format(self.oc_user,self.oc_project)
             create_oc_user = self.ssh(command)
             parameters = {"oc_project":self.oc_project}
             # print(parameters)

@@ -36,7 +36,12 @@ spec:
   - name: kubeconfig
     mountPath: /project/userapp/libraries/kubeconfig
     readOnly: true
+  - mountPath: "/mnt/lab"
+    name: cloud-lab-pvc
   volumes:
+    - name: cloud-lab
+      persistentVolumeClaim:
+        claimName: cloud-lab-pvc
     - name: ssh-key
       secret:
         secretName: ssh-key
