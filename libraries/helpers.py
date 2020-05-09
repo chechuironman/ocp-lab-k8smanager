@@ -34,7 +34,7 @@ class helper:
 
 
     def ssh(self,command):
-        key = paramiko.RSAKey.from_private_key_file("/project/userapp/libraries/ssh_key")
+        key = paramiko.RSAKey.from_private_key_file("/project/userapp/libraries/ssh-key")
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(hostname = self.server,  username = "root", pkey = key )

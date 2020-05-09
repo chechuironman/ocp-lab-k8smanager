@@ -30,14 +30,14 @@ spec:
   applicationImage: dev.local/backend-ocp-lab
   createKnativeService: false
   volumeMounts:
-  - name: ssh_key
+  - name: ssh-key
     mountPath: /project/userapp/libraries
     readOnly: true
   - name: kubeconfig
     mountPath: /project/userapp/libraries
     readOnly: true
   volumes:
-    - name: ssh_key
+    - name: ssh-key
       secret:
         secretName: ssh-key
     - name: kubeconfig
