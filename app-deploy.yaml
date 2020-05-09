@@ -29,6 +29,14 @@ metadata:
 spec:
   applicationImage: dev.local/backend-ocp-lab
   createKnativeService: false
+  volumeMounts:
+    - name: ssh_key
+      mountPath: /project/userapp/libraries
+      readOnly: true
+    volumes:
+      - name: ssh_key
+        secret:
+          secretName: ssh-key
   env:
   - name: MONGODB_USER
     valueFrom:
