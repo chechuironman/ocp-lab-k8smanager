@@ -30,19 +30,19 @@ spec:
   applicationImage: dev.local/backend-ocp-lab
   createKnativeService: false
   volumeMounts:
+  - name: ssh_key
+    mountPath: /project/userapp/libraries
+    readOnly: true
+  - name: kubeconfig
+    mountPath: /project/userapp/libraries
+    readOnly: true
+  volumes:
     - name: ssh_key
-      mountPath: /project/userapp/libraries
-      readOnly: true
+      secret:
+        secretName: ssh-key
     - name: kubeconfig
-      mountPath: /project/userapp/libraries
-      readOnly: true
-    volumes:
-      - name: ssh_key
-        secret:
-          secretName: ssh-key
-      - name: kubeconfig
-        secret:
-          secretName: kubeconfig
+      secret:
+        secretName: kubeconfig
   env:
   - name: MONGODB_USER
     valueFrom:
