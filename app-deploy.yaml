@@ -39,7 +39,7 @@ spec:
   - mountPath: "/mnt/lab"
     name: cloud-lab-pvc
   volumes:
-    - name: cloud-lab
+    - name: cloud-lab-pvc
       persistentVolumeClaim:
         claimName: cloud-lab-pvc
     - name: ssh-key
