@@ -174,13 +174,16 @@ class helper:
             self.oc_user = self.ssh_user
             command = 'htpasswd -b /mnt/lab/users.htpasswd {} {}'.format(self.oc_user,self.oc_passwd)
             print(command)
-            create_oc_user = self.ssh(command)
-            command = 'oc --kubeconfig=/mnt/lab/kubeconfig delete secret htpass-secret -n openshift-config'
+            os.system(command)
+            # create_oc_user = self.ssh(command)
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig delete secret htpass-secret -n openshift-config'
             print(command)
-            create_oc_user = self.ssh(command)
-            command = 'oc --kubeconfig=/mnt/lab/kubeconfig create secret generic htpass-secret --from-file=htpasswd=/root/lab/users.htpasswd -n openshift-config'
+            os.system(command)
+            # create_oc_user = self.ssh(command)
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig create secret generic htpass-secret --from-file=htpasswd=/root/lab/users.htpasswd -n openshift-config'
             print(command)
-            create_oc_user = self.ssh(command)
+            os.system(command)
+            # create_oc_user = self.ssh(command)
             parameters = {"oc_user":self.oc_user,"oc_passwd":self.oc_passwd}
             print(parameters)
             # print(parameters)
@@ -189,13 +192,16 @@ class helper:
             e = sys.exc_info()[0]
             print( "<p>Error: %s</p>" % e )
             return False
+
     def create_project_oc(self):
         try:
             self.oc_project = self.ssh_user
-            command = 'oc --kubeconfig=/mnt/lab/kubeconfig new-project {}'.format(self.oc_project)
-            create_oc_user = self.ssh(command)
-            command = 'oc --kubeconfig=/mnt/lab/kubeconfig adm policy add-role-to-user edit {} -n {}'.format(self.oc_user,self.oc_project)
-            create_oc_user = self.ssh(command)
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig new-project {}'.format(self.oc_project)
+            # create_oc_user = self.ssh(command)
+            os.system(command)
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig adm policy add-role-to-user edit {} -n {}'.format(self.oc_user,self.oc_project)
+            os.system(command)
+            # create_oc_user = self.ssh(command)
             parameters = {"oc_project":self.oc_project}
             # print(parameters)
             update_registry = self.update_user_registry(self.user,self.course,parameters)
@@ -203,6 +209,7 @@ class helper:
             e = sys.exc_info()[0]
             print( "<p>Error: %s</p>" % e )
             return False
+
     def create_ssh_user(self,user,course):
         try:
             print("Create ssh user: {} ".format(user))
