@@ -176,11 +176,11 @@ class helper:
             print(command)
             os.system(command)
             # create_oc_user = self.ssh(command)
-            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig delete secret htpass-secret -n openshift-config'
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig delete secret htpass-secret -n openshift-config'
             print(command)
             os.system(command)
             # create_oc_user = self.ssh(command)
-            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig create secret generic htpass-secret --from-file=htpasswd=/root/lab/users.htpasswd -n openshift-config'
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig create secret generic htpass-secret --from-file=htpasswd=/root/lab/users.htpasswd -n openshift-config'
             print(command)
             os.system(command)
             # create_oc_user = self.ssh(command)
@@ -196,10 +196,10 @@ class helper:
     def create_project_oc(self):
         try:
             self.oc_project = self.ssh_user
-            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig new-project {}'.format(self.oc_project)
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig new-project {}'.format(self.oc_project)
             # create_oc_user = self.ssh(command)
             os.system(command)
-            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig adm policy add-role-to-user edit {} -n {}'.format(self.oc_user,self.oc_project)
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig adm policy add-role-to-user edit {} -n {}'.format(self.oc_user,self.oc_project)
             os.system(command)
             # create_oc_user = self.ssh(command)
             parameters = {"oc_project":self.oc_project}
