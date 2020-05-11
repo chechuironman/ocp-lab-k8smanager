@@ -87,7 +87,7 @@ def _namespaces():
 @track_requests
 def _create_user():
     data  = json.loads(request.data.decode("utf-8"))
-    app.logger.info('creating userv%s ', data['user'])
+    app.logger.info('creating user: %s ', data['user'])
     print(data)
     # print(data['course']['text'])
     result = engine.user_create(data['user'],data['course']['text'])
