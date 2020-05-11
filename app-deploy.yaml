@@ -35,7 +35,6 @@ spec:
     readOnly: true
   - name: kubeconfig
     mountPath: /project/userapp/libraries/kubeconfig
-    readOnly: true
   - mountPath: "/mnt/lab"
     name: cloud-lab-pvc
   - mountPath: /project/userapp/libraries/host
