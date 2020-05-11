@@ -52,7 +52,7 @@ spec:
     - name: kubeconfig
       secret:
         secretName: kubeconfig
-        mode: 384
+        defaultMode: 384
   env:
   - name: MONGODB_USER
     valueFrom:
