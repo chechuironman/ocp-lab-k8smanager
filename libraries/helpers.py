@@ -68,8 +68,9 @@ class helper:
             else:
                 return False
         except: 
-            e = sys.exc_info()[0]
-            print( "<p>Error: %s</p>" % e )
+            print('Error: {}. {}, line: {}'.format(sys.exc_info()[0],
+                                         sys.exc_info()[1],
+                                         sys.exc_info()[2].tb_lineno))
             return False
 
     def check_pivot(self):
@@ -81,8 +82,9 @@ class helper:
             print(x)
             return int(x['base'])
         except: 
-            e = sys.exc_info()[0]
-            print( "<p>Error: %s</p>" % e )
+            print('Error: {}. {}, line: {}'.format(sys.exc_info()[0],
+                                         sys.exc_info()[1],
+                                         sys.exc_info()[2].tb_lineno))
             return False
 
     def check_ssh_host(self):
@@ -95,8 +97,9 @@ class helper:
             print(x)
             return str(x['ip'])
         except: 
-            e = sys.exc_info()[0]
-            print( "<p>Error ssh_host: %s</p>" % e )
+            print('Error: {}. {}, line: {}'.format(sys.exc_info()[0],
+                                         sys.exc_info()[1],
+                                         sys.exc_info()[2].tb_lineno))
             return False
 
     def update_pivot(self):
@@ -112,8 +115,9 @@ class helper:
             collection.update_one(myquery, newvalues)
             return True
         except: 
-            e = sys.exc_info()[0]
-            print( "<p>Error pivot: %s</p>" % e )
+            print('Error: {}. {}, line: {}'.format(sys.exc_info()[0],
+                                         sys.exc_info()[1],
+                                         sys.exc_info()[2].tb_lineno))
             return False
 
     def create_user_registry(self,user,course):
@@ -130,8 +134,9 @@ class helper:
             x = collection.insert_one({'user':user,'courseName':course,'github':document['github'], 'oc_instance': document['clusterUrl'], 'ssh_host' : self.ssh_host})
             return True
         except: 
-            e = sys.exc_info()[0]
-            print( "<p>Error: %s</p>" % e )
+            print('Error: {}. {}, line: {}'.format(sys.exc_info()[0],
+                                         sys.exc_info()[1],
+                                         sys.exc_info()[2].tb_lineno))
             return False
 
     def workspace(self,user,course):
@@ -146,8 +151,9 @@ class helper:
             response.append(document)
             return response
         except: 
-            e = sys.exc_info()[0]
-            print( "<p>Error: %s</p>" % e )
+            print('Error: {}. {}, line: {}'.format(sys.exc_info()[0],
+                                         sys.exc_info()[1],
+                                         sys.exc_info()[2].tb_lineno))
             return False
 
     def update_user_registry(self,user,course,parameters):
@@ -162,8 +168,9 @@ class helper:
             # print(newvalues)
             result = collection.update_one(myquery, newvalues)
         except: 
-            e = sys.exc_info()[0]
-            print( "<p>Error: %s</p>" % e )
+            print('Error: {}. {}, line: {}'.format(sys.exc_info()[0],
+                                         sys.exc_info()[1],
+                                         sys.exc_info()[2].tb_lineno))
             return False
 
     def create_user_oc(self):
@@ -172,15 +179,19 @@ class helper:
             passwd =  self.randomString()
             self.oc_passwd = passwd
             self.oc_user = self.ssh_user
-            command = 'htpasswd -b /mnt/lab/users.htpasswd {} {}'.format(self.oc_user,self.oc_passwd)
+            if os.path.exists("guru99.txt"):
+                command = 'htpasswd -b /mnt/lab/users.htpasswd {} {}'.format(self.oc_user,self.oc_passwd)
+            else:
+                command = 'htpasswd -c -B -b /mnt/lab/users.htpasswd {} {}'.format(self.oc_user,self.oc_passwd)
+
             print(command)
             os.system(command)
             # create_oc_user = self.ssh(command)
-            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig delete secret htpass-secret -n openshift-config'
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig config use-context admin && oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig delete secret htpass-secret -n openshift-config'
             print(command)
             os.system(command)
             # create_oc_user = self.ssh(command)
-            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig create secret generic htpass-secret --from-file=htpasswd=/mnt/lab/users.htpasswd -n openshift-config'
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig config use-context admin && oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig create secret generic htpass-secret --from-file=htpasswd=/mnt/lab/users.htpasswd -n openshift-config'
             print(command)
             os.system(command)
             # create_oc_user = self.ssh(command)
@@ -189,25 +200,27 @@ class helper:
             # print(parameters)
             update_registry = self.update_user_registry(self.user,self.course,parameters)
         except: 
-            e = sys.exc_info()[0]
-            print( "<p>Error: %s</p>" % e )
+            print('Error: {}. {}, line: {}'.format(sys.exc_info()[0],
+                                         sys.exc_info()[1],
+                                         sys.exc_info()[2].tb_lineno))
             return False
 
     def create_project_oc(self):
         try:
             self.oc_project = self.ssh_user
-            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig new-project {}'.format(self.oc_project)
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig config use-context admin && oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig new-project {}'.format(self.oc_project)
             # create_oc_user = self.ssh(command)
             os.system(command)
-            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig adm policy add-role-to-user edit {} -n {}'.format(self.oc_user,self.oc_project)
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig config use-context admin && oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig adm policy add-role-to-user edit {} -n {}'.format(self.oc_user,self.oc_project)
             os.system(command)
             # create_oc_user = self.ssh(command)
             parameters = {"oc_project":self.oc_project}
             # print(parameters)
             update_registry = self.update_user_registry(self.user,self.course,parameters)
         except: 
-            e = sys.exc_info()[0]
-            print( "<p>Error: %s</p>" % e )
+            print('Error: {}. {}, line: {}'.format(sys.exc_info()[0],
+                                         sys.exc_info()[1],
+                                         sys.exc_info()[2].tb_lineno))
             return False
 
     def create_ssh_user(self,user,course):
@@ -230,8 +243,9 @@ class helper:
             # print(parameters)
             update_registry = self.update_user_registry(user,course,parameters)    
         except:
-            e = sys.exc_info()[0]
-            print( "<p>Error: %s</p>" % e )
+            print('Error: {}. {}, line: {}'.format(sys.exc_info()[0],
+                                         sys.exc_info()[1],
+                                         sys.exc_info()[2].tb_lineno))
             return False
 
     def course_info(self,user,course):
@@ -244,8 +258,9 @@ class helper:
             result = self.workspace(user,course)
             return self.workspace(user,course)
         except:
-            e = sys.exc_info()[0]
-            print( "<p>Error: %s</p>" % e )
+            print('Error: {}. {}, line: {}'.format(sys.exc_info()[0],
+                                         sys.exc_info()[1],
+                                         sys.exc_info()[2].tb_lineno))
             return False
                
 
