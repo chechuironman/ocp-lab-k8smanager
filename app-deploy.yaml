@@ -52,7 +52,7 @@ spec:
     - name: kubeconfig
       secret:
         secretName: kubeconfig
-        defaultMode: 770
+        defaultMode: 0770
   env:
   - name: MONGODB_USER
     valueFrom:
