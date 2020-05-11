@@ -15,7 +15,7 @@ class helper:
                             password=os.environ['MONGODB_PASSWORD'],
                             authSource=os.environ['MONGODB_DATABASE'])
         config = configparser.ConfigParser(allow_no_value=True)
-        config.read("/project/userapp/libraries/host")
+        config.read("/project/userapp/libraries/host/host")
         sections = config.sections()
         for section in sections:
             for option in config.options(section):
@@ -180,7 +180,7 @@ class helper:
             print(command)
             os.system(command)
             # create_oc_user = self.ssh(command)
-            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig create secret generic htpass-secret --from-file=htpasswd=/root/lab/users.htpasswd -n openshift-config'
+            command = 'oc --kubeconfig=/project/userapp/libraries/kubeconfig/kubeconfig create secret generic htpass-secret --from-file=htpasswd=/mnt/lab/users.htpasswd -n openshift-config'
             print(command)
             os.system(command)
             # create_oc_user = self.ssh(command)
