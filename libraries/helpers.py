@@ -240,7 +240,7 @@ class helper:
             assign_passwd = self.ssh(command)  
             self.ssh_passwd = assign_passwd
             parameters = {"ssh_user":ssh_user,"ssh_passwd":passwd}
-            # print(parameters)
+            print(parameters)
             update_registry = self.update_user_registry(user,course,parameters)    
         except:
             print('Error: {}. {}, line: {}'.format(sys.exc_info()[0],
