@@ -3,4 +3,5 @@ Pipfile.lock
 libraries/kubeconfig/*
 libraries/host/*
 libraries/ssh-key/*
+libraries/__pycache__
 data
